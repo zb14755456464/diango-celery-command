@@ -1,9 +1,4 @@
-from datetime import timedelta
-
 import djcelery
-from celery.schedules import crontab
-
-
 djcelery.setup_loader()
 
 # 定义队列
@@ -43,17 +38,3 @@ CELERYD_TASK_TIME_LIMIT = 12*30
 
 
 CELERY_TIMEZONE = 'Asia/Shanghai'
-
-
-
-
-# 配置定时任务列表
-CELERYBEAT_SCHEDULE = {
-
-    "task1":{
-        "task": "course.tasks.course_task",
-        "schedule": timedelta(seconds=3), # 每3S执行一次
-        'options': {
-        "queue": "work_queue"
-        }
-    }}

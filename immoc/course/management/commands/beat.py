@@ -31,10 +31,24 @@ class Command(BaseCommand):
 
         pid_file = path.join(celery_conf_path, "celerybeat.pid")
         schedule_db = path.join(celery_conf_path, "celerybeat-schedule")
-
+        self.config(app)
         app.start(
             argv=['celery', 'beat', '-l', options['log_level'],
                   '--pidfile', pid_file, '-s', schedule_db]
         )
 
 
+    def config(self, app):
+        from datetime import timedelta
+        beat = {}
+        beat.update({
+
+            "task1":{
+                "task": "course.tasks.course_task",
+                "schedule": timedelta(seconds=3), # 每3S执行一次
+                'options': {
+                "queue": "work_queue"
+                }
+            }
+        })
+        app.conf.beat_schedule = beat
