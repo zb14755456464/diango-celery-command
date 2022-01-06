@@ -1,4 +1,4 @@
-celery==4.2.1
+celery==5.2.2
 celery-with-redis==3.0
 django-celery==3.2.2
 django-celery-results==1.0.4
